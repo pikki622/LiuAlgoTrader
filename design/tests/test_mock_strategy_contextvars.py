@@ -28,9 +28,7 @@ def test_set_context_True(bool_val, parameters):
     assert symbol, position == parameters
 
 
-@pytest.mark.parametrize(
-    # testing return values for True context,
-    "bool_val, return_val", [(True, dict())])
+@pytest.mark.parametrize("bool_val, return_val", [(True, {})])
 def test_run_True(bool_val, return_val):
     symbol, position = mock_strategy_contextvars.set_context(bool_val)
     assert mock_strategy_contextvars.run(symbol, position) == return_val

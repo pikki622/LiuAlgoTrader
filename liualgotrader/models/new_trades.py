@@ -169,7 +169,7 @@ class NewTrade:
             pool = config.db_conn_pool
         async with pool.acquire() as con:
             async with con.transaction():
-                val = await con.fetchval(
+                return await con.fetchval(
                     """
                         SELECT  algo_run_id
                         FROM new_trades
@@ -179,5 +179,3 @@ class NewTrade:
                     """,
                     symbol,
                 )
-
-                return val

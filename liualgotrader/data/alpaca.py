@@ -142,11 +142,10 @@ class AlpacaData(DataAPI):
         except APIError as e:
             raise ValueError(f"{symbol} snapshot not found") from e
 
-        min_bar = snapshot_data.latest_trade
-        if not min_bar:
+        if min_bar := snapshot_data.latest_trade:
+            return min_bar.t
+        else:
             raise ValueError(f"Can't get snapshot for {symbol}")
-
-        return min_bar.t
 
     def get_trading_holidays(self) -> List[str]:
         nyse = pandas_market_calendars.get_calendar("NYSE")
