@@ -148,9 +148,7 @@ def find_stop(
 
     diff = np.diff(series.values)
     low_index = np.where((diff[:-1] <= 0) & (diff[1:] > 0))[0] + 1
-    if len(low_index) > 0:
-        return series[low_index[-1]]  # - max(0.05, current_value * 0.02)
-    return None  # current_value * config.default_stop
+    return series[low_index[-1]] if len(low_index) > 0 else None
 
 
 def get_local_maxima(

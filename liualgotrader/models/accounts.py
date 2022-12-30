@@ -137,11 +137,7 @@ class Accounts:
             """
 
         df = await fetch_as_dataframe(q, account_id)
-        return (
-            df.set_index("tstamp", drop=True).sort_index()
-            if not df.empty
-            else df
-        )
+        return df if df.empty else df.set_index("tstamp", drop=True).sort_index()
 
     @classmethod
     async def clear_balance(cls, account_id: int, new_balance: float):

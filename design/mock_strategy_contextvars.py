@@ -28,7 +28,7 @@ def set_context(bool_val):
     if should_run_all(bool_val):
         var1.set(symbols_position)
         var2.set(None)
-        var3.set(dict())
+        var3.set({})
     symbol = var1.get()
     position = var2.get()
 

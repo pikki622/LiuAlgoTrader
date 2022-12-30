@@ -406,7 +406,7 @@ async def handle_quote(data: Dict) -> bool:
     if not voi_stack:
         voi_stack = [0.0]
     elif len(voi_stack) == 10:
-        voi_stack[0:9] = voi_stack[1:10]
+        voi_stack[:9] = voi_stack[1:10]
         voi_stack.pop()
 
     k = 2.0 / (100 + 1)

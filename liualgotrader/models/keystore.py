@@ -7,7 +7,7 @@ class KeyStore:
     async def load(cls, key: str):
         pool = config.db_conn_pool
         async with pool.acquire() as con:
-            val = await con.fetchval(
+            return await con.fetchval(
                 """
                     SELECT 
                         value
@@ -18,8 +18,6 @@ class KeyStore:
                 """,
                 key,
             )
-
-            return val
 
     @classmethod
     async def save(cls, key: str, value: str):

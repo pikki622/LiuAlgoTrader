@@ -116,7 +116,7 @@ class StockOhlc:
 
         async with pool.acquire() as con:
             async with con.transaction():
-                val = await con.fetchval(
+                return await con.fetchval(
                     """
                         SELECT symbol_date
                         FROM stock_ohlc
@@ -126,7 +126,6 @@ class StockOhlc:
                     """,
                     symbol,
                 )
-                return val
 
     @classmethod
     async def load_by_date(
@@ -146,10 +145,8 @@ class StockOhlc:
                     symbol_date,
                 )
 
-                rc: Dict[str, object] = {}
-
-                for x in rows:
-                    rc[x[0]] = StockOhlc(
+                rc: Dict[str, object] = {
+                    x[0]: StockOhlc(
                         symbol=x[0],
                         symbol_date=x[1],
                         open=x[2],
@@ -159,7 +156,8 @@ class StockOhlc:
                         volume=x[6],
                         indicators=json.loads(x[7]),
                     )
-
+                    for x in rows
+                }
                 return rc
 
     async def save(
